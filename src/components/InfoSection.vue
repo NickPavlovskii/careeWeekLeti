@@ -13,7 +13,7 @@
           <div class="cta cta-primary cta-primary-subtitle">
             <p class="cta-subtitle">ПРОСТО НА КАРПОВКЕ</p>
           </div>
-          <button class="cta cta-outline reg" >
+          <button @click="$router.push('/registration')" class="cta cta-outline reg" >
             <p>Зарегистрироваться</p>
           </button>
         </div>

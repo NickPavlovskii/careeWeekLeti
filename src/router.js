@@ -12,6 +12,8 @@ import ParticipantStep2 from './components/RegistrationForm/ParticipantStep2.vue
 import EmployerStep1 from './components/RegistrationForm/EmployerStep1.vue';
 import EmployerStep2 from './components/RegistrationForm/EmployerStep2.vue';
 
+import RegistrationSelection from '@/pages/RegistrationSelection.vue';
+
 const routes = [
   {
     path: '/',
@@ -28,6 +30,14 @@ const routes = [
     name: 'ParticipantStep1',
     components: {
       default: ParticipantStep1,
+      header: CareerHeader,
+    },
+  },
+  {
+    path: '/registration',
+    name: 'RegistrationSelection',
+    components: {
+      default: RegistrationSelection,
       header: CareerHeader,
     },
   },

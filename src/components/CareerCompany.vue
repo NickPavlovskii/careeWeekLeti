@@ -27,17 +27,16 @@
       class="employers-swiper"
     >
       <SwiperSlide
-        v-for="employer in filteredEmployers"
-        :key="employer.alt"
+        v-for="(employer, i) in filteredEmployers"
+        :key="i"
         class="employer-slide"
       >
-        <a
-          v-for="(company, i) in companies"
-          :key="i"
-          :href="company.link"
-          target="_blank"
-        >
-          <img :src="company.logo" :alt="company.alt" />
+        <a :href="employer.link" target="_blank">
+          <img
+            :src="employer.logo"
+            :alt="employer.alt"
+            class="employer-logo"
+          />
         </a>
       </SwiperSlide>
     </Swiper>
@@ -54,15 +53,52 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-// ✅ Данные напрямую из JS
-import employersData from "../data/companies.js";
+// ✅ Список компаний
+const employers = ref([
+  {
+    logo: new URL('@/assets/images/companies/baltika.svg', import.meta.url).href,
+    alt: 'Балтика',
+    type: 'Производство',
+    link: 'https://baltika.ru/',
+  },
+  {
+    logo: new URL('@/assets/images/companies/bee-pitron.svg', import.meta.url).href,
+    alt: 'Bee Pitron',
+    type: 'IT',
+    link: 'https://beepitron.com/',
+  },
+  {
+    logo: new URL('@/assets/images/companies/sbank.svg', import.meta.url).href,
+    alt: 'Совкомбанк',
+    type: 'Финансы',
+    link: 'https://sovcombank.ru/',
+  },
+  {
+    logo: new URL('@/assets/images/companies/stc.svg', import.meta.url).href,
+    alt: 'СТЦ',
+    type: 'IT',
+    link: 'https://stcgroup.ru/',
+  },
+  {
+    logo: new URL('@/assets/images/companies/yadro.svg', import.meta.url).href,
+    alt: 'Ядро',
+    type: 'IT',
+    link: 'https://yadro.com/',
+  },
+  {
+    logo: new URL('@/assets/images/companies/zvezda.svg', import.meta.url).href,
+    alt: 'Звезда',
+    type: 'Производство',
+    link: 'https://zvezda.ru/',
+  },
+]);
 
+
+// 🔽 Фильтр
 const selectedType = ref("Все");
 const types = ["IT", "Производство", "Образование"];
-const employers = ref(employersData);
 
 const filteredEmployers = computed(() => {
-  console.log(employers.value);
   if (selectedType.value === "Все") return employers.value;
   return employers.value.filter((e) => e.type === selectedType.value);
 });
@@ -144,9 +180,14 @@ const filteredEmployers = computed(() => {
 }
 
 .employer-logo {
-  max-width: 120px;
+
   max-height: 80px;
   object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.employer-logo:hover {
+  transform: scale(1.1);
 }
 
 .employers-btn {
@@ -163,5 +204,79 @@ const filteredEmployers = computed(() => {
 }
 .employers-btn:hover {
   background: #6c1fb8;
+}
+
+@media (max-width: 768px) {
+  .employers {
+    padding: 20px 10px;
+  }
+
+  .employers-title {
+    font-size: 28px;
+    padding: 8px 20px;
+  }
+
+  .filter {
+    width: 120px;
+    margin-bottom: 20px;
+  }
+
+  :deep(.swiper) {
+    height: 160px;
+  }
+
+  .employer-logo {
+    max-height: 60px;
+  }
+
+  .employers-btn {
+    font-size: 16px;
+    width: 160px;
+    padding: 10px 20px;
+  }
+
+  /* Уменьшаем стрелки свайпера */
+  .swiper-button-next,
+  .swiper-button-prev {
+    width: 32px;
+    height: 32px;
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 16px;
+  }
+}
+
+/* Для маленьких телефонов */
+@media (max-width: 480px) {
+  .employers-title {
+    font-size: 22px;
+    border-width: 1.5px;
+    padding: 6px 16px;
+  }
+
+  .employer-logo {
+    max-height: 30px;
+  }
+
+  :deep(.swiper) {
+    height: 140px;
+  }
+
+  .employers-btn {
+    font-size: 14px;
+    width: 140px;
+    padding: 8px 16px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none; /* можно скрыть стрелки на телефоне */
+  }
+
+  :deep(.swiper-pagination) {
+    margin-top: 30px;
+  }
 }
 </style>

@@ -19,7 +19,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 40px 20px;
+  padding: 40px 0px;
   display: flex;
   align-items: center;
 }
