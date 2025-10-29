@@ -1,0 +1,362 @@
+<template>
+  <div class="modal-shell">
+    <div class="modal-card">
+      <div class="left-illustration">
+        <img src="@/assets/images/ImgEmployerReg.png" alt="illustration" />
+      </div>
+
+      <div class="right-form">
+        <header class="form-header">
+          <h1 class="title">Работодатели</h1>
+          <button class="close-btn" @click="$router.push('/')">
+            <v-icon>mdi-close</v-icon>
+          </button>
+
+          <nav class="steps">
+            <div class="step done">
+              <span class="step-circle">1</span>
+              <span class="step-label">Базовая информация</span>
+            </div>
+            <div class="step active">
+              <span class="step-circle">2</span>
+              <span class="step-label">Контактная информация</span>
+            </div>
+          </nav>
+        </header>
+
+        <section class="section">
+          <h2 class="section-title">Контактная информация</h2>
+          <p class="hint">*Все поля обязательны для заполнения.</p>
+
+          <form class="form" @submit.prevent="onSubmit" novalidate>
+            <div class="field">
+              <label class="label" for="phone">*Номер телефона</label>
+              <div class="input phone-input">
+                <span class="flag">🇷🇺 +7</span>
+                <input
+                  id="phone"
+                  v-model="form.phone"
+                  type="tel"
+                  class="inner-input"
+                  placeholder="Введите номер"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="email">*Gmail</label>
+              <input
+                id="email"
+                v-model="form.email"
+                type="email"
+                class="input"
+                placeholder="example@gmail.com"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="site">*Сайт организации</label>
+              <input
+                id="site"
+                v-model="form.site"
+                type="url"
+                class="input"
+                placeholder="https://example.ru"
+                required
+              />
+            </div>
+
+            <div class="field checkbox-field">
+              <label class="checkbox-label">
+                <input type="checkbox" v-model="form.agree" />
+                Даю своё согласие на обработку и передачу своих данных
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              class="btn-primary"
+              :disabled="!isValid"
+            >
+              Зарегистрироваться
+            </button>
+          </form>
+        </section>
+
+        <NotificationMessage
+          v-if="notification.visible"
+          :type="notification.type"
+          :message="notification.message"
+          @close="notification.visible = false"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { reactive, computed } from "vue";
+import { useRouter } from "vue-router";
+import NotificationMessage from "@/components/common/NotificationMessage.vue";
+
+const router = useRouter();
+
+const form = reactive({
+  phone: "",
+  email: "",
+  site: "",
+  agree: false,
+});
+
+const notification = reactive({
+  visible: false,
+  type: "",
+  message: "",
+});
+
+const isValid = computed(() =>
+  form.phone.trim() && form.email.trim() && form.site.trim() && form.agree
+);
+
+function onSubmit() {
+  if (!isValid.value) {
+    notification.visible = true;
+    notification.type = "error";
+    notification.message =
+      "Пожалуйста, заполните все обязательные поля и дайте согласие.";
+    return;
+  }
+
+  notification.visible = true;
+  notification.type = "success";
+  notification.message = "Регистрация работодателя успешно завершена!";
+
+  setTimeout(() => {
+    router.push("/");
+  }, 1500);
+
+  console.log("Отправленные данные:", { ...form });
+}
+</script>
+
+<style scoped>
+.modal-shell {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 1120px;
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.left-illustration {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 40px;
+}
+.left-illustration img {
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.right-form {
+  width: 520px;
+  padding: 36px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f1720;
+}
+
+.steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+  margin: 40px 0;
+  position: relative;
+}
+
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background-color: #c9d1c9;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.step-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #c0cec0;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.step-label {
+  font-size: 14px;
+  color: #8a988a;
+}
+
+.step.active .step-circle {
+  background-color: #244c33;
+}
+.step.active .step-label {
+  color: #244c33;
+  font-weight: 500;
+}
+
+.step.done .step-circle {
+  background-color: #8fa98f;
+}
+.step.done .step-label {
+  color: #6c7f6c;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #1f4c3b;
+  font-weight: 600;
+}
+
+.hint {
+  color: #6b6b6b;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.field {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 13px;
+  color: #4b4b4b;
+  margin-bottom: 6px;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+  font-size: 14px;
+  color: #222;
+}
+.input:focus {
+  border-color: #2f8a63;
+  box-shadow: 0 0 0 4px rgba(47, 138, 99, 0.06);
+}
+
+.phone-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+}
+.flag {
+  font-size: 14px;
+  color: #444;
+}
+.inner-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.checkbox-field {
+  margin-top: 10px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #3b3b3b;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 48px;
+  border-radius: 28px;
+  border: none;
+  background: #bfbfbf;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+.btn-primary:hover {
+  background: #244c33;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .left-illustration {
+    display: none;
+  }
+  .modal-card {
+    flex-direction: column;
+    max-width: 760px;
+  }
+  .left-illustration {
+    padding: 24px;
+  }
+  .right-form {
+    width: 100%;
+    padding: 24px;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .col-1 {
+    max-width: none;
+  }
+}
+</style>
