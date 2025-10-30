@@ -32,31 +32,27 @@
 ## 🚀 Установка и запуск проекта
 
 ### 1️⃣ Клонировать репозиторий
+# 🚀 Установка и запуск проекта с нуля
 
+## 1️⃣ Установка Node.js и npm
+Если Node.js и npm ещё не установлены — скачай и установи с официального сайта:
+
+🔗 https://nodejs.org/
+
+После установки проверь версии:
 ```bash
-[git clone https://github.com/your-username/career-week.git](https://github.com/NickPavlovskii/careeWeekLeti.git)
+node -v
+npm -v
+```bash
+# Клонирование репозитория
+git clone https://github.com/NickPavlovskii/careeWeekLeti.git
 cd careeWeekLeti
 
-
-## Project setup
-```
+# Установка зависимостей
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
+# Запуск проекта в режиме разработки
 npm run serve
-```
 
-### Compiles and minifies for production
-```
+# Сборка проекта для продакшена
 npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
