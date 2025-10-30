@@ -34,8 +34,8 @@
 ### 1️⃣ Клонировать репозиторий
 
 ```bash
-git clone https://github.com/your-username/career-week.git
-cd career-week
+[git clone https://github.com/your-username/career-week.git](https://github.com/NickPavlovskii/careeWeekLeti.git)
+cd careeWeekLeti
 
 
 ## Project setup
