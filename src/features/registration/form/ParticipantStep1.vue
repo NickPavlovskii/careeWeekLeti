@@ -2,7 +2,7 @@
   <div class="modal-shell">
     <div class="modal-card">
       <div class="left-illustration">
-        <img src="@/assets/images/ImgParticipantReg.png" alt="illustration" />
+        <img src="@/assets/images/participants/ImgParticipantReg.png" alt="illustration" />
       </div>
 
       <div class="right-form">
@@ -170,7 +170,7 @@
 <script setup>
 import { reactive, ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import Notification from "@/components/common/NotificationMessage.vue";
+import Notification from "@/shared/NotificationMessage.vue";
 
 const router = useRouter();
 const step = ref(1);

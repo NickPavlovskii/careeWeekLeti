@@ -349,7 +349,7 @@
         </g>
       </svg>
       <div v-else class="static-image">
-        <img src="../assets/images/plan.png" alt="Схема зала" />
+        <img src="../../assets/images/icons/plan.png" alt="Схема зала" />
       </div>
       <!-- Tooltip -->
       <div
@@ -369,8 +369,6 @@
 import { ref, computed, defineEmits } from "vue";
 const hoveredSeat = ref(null);
 const isInteractive = ref(true);
-
-
 
 const zones = ref([
   {

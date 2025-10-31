@@ -1,10 +1,12 @@
 <template>
   <div class="modal-shell">
     <div class="modal-card">
+      <!-- Левая часть с иллюстрацией -->
       <div class="left-illustration">
-        <img src="@/assets/images/ImgEmployerReg.png" alt="illustration" />
+        <img src="@/assets/images/employers/ImgEmployerReg.png" alt="illustration" />
       </div>
 
+      <!-- Правая часть -->
       <div class="right-form">
         <header class="form-header">
           <h1 class="title">Работодатели</h1>
@@ -13,22 +15,78 @@
           </button>
 
           <nav class="steps">
-            <div class="step done">
+            <div
+              class="step"
+              :class="{ active: step === 1, done: step > 1 }"
+            >
               <span class="step-circle">1</span>
               <span class="step-label">Базовая информация</span>
             </div>
-            <div class="step active">
+
+            <div
+              class="step"
+              :class="{ active: step === 2, done: step > 2 }"
+            >
               <span class="step-circle">2</span>
               <span class="step-label">Контактная информация</span>
             </div>
           </nav>
         </header>
 
-        <section class="section">
+        <!-- === Шаг 1 === -->
+        <section v-if="step === 1" class="section">
+          <h2 class="section-title">Базовая информация</h2>
+          <p class="hint">*Все поля обязательны для заполнения.</p>
+
+          <form class="form" @submit.prevent="nextStep" novalidate>
+            <div class="field">
+              <label class="label" for="fio">*ФИО</label>
+              <input
+                id="fio"
+                v-model="form.fio"
+                type="text"
+                class="input"
+                placeholder="Иванов Иван Иванович"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="company">*Название компании</label>
+              <input
+                id="company"
+                v-model="form.company"
+                type="text"
+                class="input"
+                placeholder="ООО «Альфа», ИП Петров..."
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label class="label" for="description"
+                >*Краткое описание организации</label
+              >
+              <textarea
+                id="description"
+                v-model="form.description"
+                class="input textarea"
+                placeholder="Чем занимается компания..."
+                rows="3"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Дальше</button>
+          </form>
+        </section>
+
+        <!-- === Шаг 2 === -->
+        <section v-else class="section">
           <h2 class="section-title">Контактная информация</h2>
           <p class="hint">*Все поля обязательны для заполнения.</p>
 
-          <form class="form" @submit.prevent="onSubmit" novalidate>
+          <form class="form" @submit.prevent="submitForm" novalidate>
             <div class="field">
               <label class="label" for="phone">*Номер телефона</label>
               <div class="input phone-input">
@@ -70,73 +128,49 @@
 
             <div class="field checkbox-field">
               <label class="checkbox-label">
-                <input type="checkbox" v-model="form.agree" />
-                Даю своё согласие на обработку и передачу своих данных
+                <input type="checkbox" v-model="form.agree" required />
+                Даю своё согласие на обработку и передачу своих данных.
               </label>
             </div>
 
-            <button
-              type="submit"
-              class="btn-primary"
-              :disabled="!isValid"
-            >
-              Зарегистрироваться
-            </button>
+            <button type="submit" class="btn-primary">Зарегистрироваться</button>
           </form>
         </section>
-
-        <NotificationMessage
-          v-if="notification.visible"
-          :type="notification.type"
-          :message="notification.message"
-          @close="notification.visible = false"
-        />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { reactive, computed } from "vue";
-import { useRouter } from "vue-router";
-import NotificationMessage from "@/components/common/NotificationMessage.vue";
+import { reactive, ref } from "vue";
 
-const router = useRouter();
+const step = ref(1);
 
 const form = reactive({
+  fio: "",
+  company: "",
+  description: "",
   phone: "",
   email: "",
   site: "",
   agree: false,
 });
 
-const notification = reactive({
-  visible: false,
-  type: "",
-  message: "",
-});
+function nextStep() {
+  if (!form.fio || !form.company || !form.description) {
+    alert("Пожалуйста, заполните все обязательные поля.");
+    return;
+  }
+  step.value = 2;
+}
 
-const isValid = computed(() =>
-  form.phone.trim() && form.email.trim() && form.site.trim() && form.agree
-);
-
-function onSubmit() {
-  if (!isValid.value) {
-    notification.visible = true;
-    notification.type = "error";
-    notification.message =
-      "Пожалуйста, заполните все обязательные поля и дайте согласие.";
+function submitForm() {
+  if (!form.phone || !form.email || !form.site || !form.agree) {
+    alert("Пожалуйста, заполните все обязательные поля и дайте согласие.");
     return;
   }
 
-  notification.visible = true;
-  notification.type = "success";
-  notification.message = "Регистрация работодателя успешно завершена!";
-
-  setTimeout(() => {
-    router.push("/");
-  }, 1500);
-
+  alert("Регистрация успешно завершена!");
   console.log("Отправленные данные:", { ...form });
 }
 </script>
@@ -185,14 +219,30 @@ function onSubmit() {
   flex-direction: column;
   gap: 18px;
 }
-
+.form-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .title {
   margin: 0;
   font-size: 34px;
   font-weight: 700;
   color: #0f1720;
 }
-
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #244c33;
+  font-size: 24px;
+  padding: 8px;
+  transition: opacity 0.2s;
+}
 .steps {
   display: flex;
   justify-content: center;
@@ -245,13 +295,6 @@ function onSubmit() {
   font-weight: 500;
 }
 
-.step.done .step-circle {
-  background-color: #8fa98f;
-}
-.step.done .step-label {
-  color: #6c7f6c;
-}
-
 .section-title {
   font-size: 18px;
   color: #1f4c3b;
@@ -290,6 +333,12 @@ function onSubmit() {
 .input:focus {
   border-color: #2f8a63;
   box-shadow: 0 0 0 4px rgba(47, 138, 99, 0.06);
+}
+
+.textarea {
+  min-height: 86px;
+  resize: vertical;
+  padding-top: 10px;
 }
 
 .phone-input {
@@ -335,7 +384,6 @@ function onSubmit() {
 .btn-primary:hover {
   background: #244c33;
 }
-
 /* Responsive */
 @media (max-width: 980px) {
   .left-illustration {
@@ -359,4 +407,6 @@ function onSubmit() {
     max-width: none;
   }
 }
+
+
 </style>

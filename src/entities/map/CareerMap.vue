@@ -11,16 +11,16 @@
 
         <div class="map-wrapper">
           <img
-            src="@/assets/images/map-icon-left.png"
+            src="@/assets/images/map/map-icon-left.png"
             alt="Иллюстрация слева"
             class="side-image left-image"
           />
           <img
-            src="@/assets/images/map-icon-right.png"
+            src="@/assets/images/map/map-icon-right.png"
             alt="Иллюстрация справа"
             class="side-image right-image"
           />
-          <img src="@/assets/images/map_exp.png" alt="" class="map-image" />
+          <img src="@/assets/images/map/map_exp.png" alt="" class="map-image" />
           <!-- <yandex-map
             :settings="mapSettings"
             style="width: 650px; height: 550px"

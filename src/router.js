@@ -2,15 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // Главная страница
 import CareerMainPage from './pages/CareerMainPage.vue';
-import CareerHeader from './components/CareerHeader.vue';
+import CareerHeader from './layouts/CareerHeader.vue';
 
 // Участники
-import ParticipantStep1 from './components/RegistrationForm/ParticipantStep1.vue';
-import ParticipantStep2 from './components/RegistrationForm/ParticipantStep2.vue';
+import ParticipantStep1 from './features/registration/form/ParticipantStep1.vue';
 
 // Работодатели
-import EmployerStep1 from './components/RegistrationForm/EmployerStep1.vue';
-import EmployerStep2 from './components/RegistrationForm/EmployerStep2.vue';
+import EmployerStep1 from './features/registration/form/EmployerStep1.vue';
 
 import RegistrationSelection from '@/pages/RegistrationSelection.vue';
 
@@ -26,7 +24,7 @@ const routes = [
 
   // === Регистрация участников ===
   {
-    path: '/registration/participant/step-1',
+    path: '/registration/participant',
     name: 'ParticipantStep1',
     components: {
       default: ParticipantStep1,
@@ -41,32 +39,18 @@ const routes = [
       header: CareerHeader,
     },
   },
-  {
-    path: '/registration/participant/step-2',
-    name: 'ParticipantStep2',
-    components: {
-      default: ParticipantStep2,
-      header: CareerHeader,
-    },
-  },
+
 
   // === Регистрация работодателей ===
   {
-    path: '/registration/employer/step-1',
+    path: '/registration/employer',
     name: 'EmployerStep1',
     components: {
       default: EmployerStep1,
       header: CareerHeader,
     },
   },
-  {
-    path: '/registration/employer/step-2',
-    name: 'EmployerStep2',
-    components: {
-      default: EmployerStep2,
-      header: CareerHeader,
-    },
-  },
+
 ];
 
 const router = createRouter({

@@ -27,11 +27,11 @@
 </template>
 
 <script setup>
-import workIcon from "@/assets/images/work-icon.svg";
-import partyIcon from "@/assets/images/party-icon.svg";
-import userIcon from "@/assets/images/user.svg";
-import likeIcon from "@/assets/images/like.svg";
-import dogImg from "@/assets/images/dog.svg";
+import workIcon from "@/assets/images/icons/work-icon.svg";
+import partyIcon from "@/assets/images/icons/party-icon.svg";
+import userIcon from "@/assets/images/icons/user.svg";
+import likeIcon from "@/assets/images/icons/like.svg";
+import dogImg from "@/assets/images/icons/dog.svg";
 
 const benefits = [
   { icon: workIcon, text: "Работа" },

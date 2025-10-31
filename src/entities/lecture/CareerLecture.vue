@@ -10,7 +10,7 @@
             <div class="lecture-image-wrapper">
               <div class="lecture-bg"></div>
               <img
-                src="@/assets/images/lecture1.png"
+                src="@/assets/images/lectures/lecture1.png"
                 alt="Лектория 1"
                 class="lecture-image"
               />
@@ -23,7 +23,7 @@
             <div class="lecture-image-wrapper">
               <div class="lecture-bg"></div>
               <img
-                src="@/assets/images/lecture2.png"
+                src="@/assets/images/lectures/lecture2.png"
                 alt="Лектория 2"
                 class="lecture-image"
               />

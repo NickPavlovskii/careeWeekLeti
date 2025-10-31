@@ -21,7 +21,7 @@
 
       <div class="hero-image">
         <img
-          src="../assets/images/logo.png"
+          src="../assets/images/icons/logo.png"
           alt="Студенческая Карьерная Неделя"
         />
       </div>

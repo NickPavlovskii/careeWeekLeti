@@ -4,17 +4,17 @@
 
     <div class="options">
       <div class="card">
-        <img src="@/assets/images/ImgParticipantReg.png" alt="Участники" />
+        <img src="@/assets/images/participants/ImgParticipantReg.png" alt="Участники" />
         <h2>Участники</h2>
-        <button @click="$router.push('/registration/participant/step-1')" class="btn">
+        <button @click="$router.push('/registration/participant')" class="btn">
           Регистрация участника
         </button>
       </div>
 
       <div class="card">
-        <img src="@/assets/images/ImgEmployerReg.png" alt="Работодатели" />
+        <img src="@/assets/images/employers/ImgEmployerReg.png" alt="Работодатели" />
         <h2>Работодатели</h2>
-        <button @click="$router.push('/registration/employer/step-1')" class="btn">
+        <button @click="$router.push('/registration/employer')" class="btn">
           Регистрация работодателя
         </button>
       </div>

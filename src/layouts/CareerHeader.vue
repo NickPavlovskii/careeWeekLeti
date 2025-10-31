@@ -4,11 +4,11 @@
       <nav class="navbar" :class="{ open: menuOpen }">
         <ul class="nav-left">
           <li>
-            <router-link to="/registration/participant/step-1" class="nav-link">
+            <router-link to="/registration/participant" class="nav-link">
               Участвовать бесплатно
             </router-link>
           </li>
-          <router-link to="/registration/employer/step-1" class="nav-link">
+          <router-link to="/registration/employer" class="nav-link">
             Работодателям
           </router-link>
         </ul>
@@ -20,7 +20,7 @@
             <a href="#" @click.prevent="scrollTo('location')">Когда и где?</a>
           </li>
           <li>
-            <a href="#"><img src="../assets/images/VK.svg" alt="VK" /></a>
+            <a href="#"><img src="../assets/images/icons/VK.svg" alt="VK" /></a>
           </li>
           <li><a href="#">Скачать программу</a></li>
         </ul>

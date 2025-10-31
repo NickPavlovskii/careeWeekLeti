@@ -9,7 +9,7 @@
     </div>
 
     <button
-      @click="$router.push('/registration/employer/step-1')"
+      @click="$router.push('/registration/employer')"
       class="details-btn"
     >
       Заявка на участие работодателей
@@ -20,9 +20,9 @@
 </template>
 
 <script setup>
-import qr1 from "@/assets/images/qr1.png";
-import qr2 from "@/assets/images/qr2.png";
-import DotsBox from "./DotsBox.vue";
+import qr1 from "@/assets/images/icons/qr1.png";
+import qr2 from "@/assets/images/icons/qr2.png";
+import DotsBox from "../../shared/DotsBox.vue";
 
 const qrCodes = [qr1, qr2];
 </script>

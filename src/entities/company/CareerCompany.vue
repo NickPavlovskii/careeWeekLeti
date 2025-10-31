@@ -32,16 +32,17 @@
         class="employer-slide"
       >
         <a :href="employer.link" target="_blank">
-          <img
-            :src="employer.logo"
-            :alt="employer.alt"
-            class="employer-logo"
-          />
+          <img :src="employer.logo" :alt="employer.alt" class="employer-logo" />
         </a>
       </SwiperSlide>
     </Swiper>
 
-    <button class="employers-btn">Приду!</button>
+    <button
+      @click="$router.push('/registration/participant')"
+      class="employers-btn"
+    >
+      Приду
+    </button>
   </section>
 </template>
 
@@ -56,43 +57,44 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 // ✅ Список компаний
 const employers = ref([
   {
-    logo: new URL('@/assets/images/companies/baltika.svg', import.meta.url).href,
-    alt: 'Балтика',
-    type: 'Производство',
-    link: 'https://baltika.ru/',
+    logo: new URL("@/assets/images/companies/baltika.svg", import.meta.url)
+      .href,
+    alt: "Балтика",
+    type: "Производство",
+    link: "https://baltika.ru/",
   },
   {
-    logo: new URL('@/assets/images/companies/bee-pitron.svg', import.meta.url).href,
-    alt: 'Bee Pitron',
-    type: 'IT',
-    link: 'https://beepitron.com/',
+    logo: new URL("@/assets/images/companies/bee-pitron.svg", import.meta.url)
+      .href,
+    alt: "Bee Pitron",
+    type: "IT",
+    link: "https://beepitron.com/",
   },
   {
-    logo: new URL('@/assets/images/companies/sbank.svg', import.meta.url).href,
-    alt: 'Совкомбанк',
-    type: 'Финансы',
-    link: 'https://sovcombank.ru/',
+    logo: new URL("@/assets/images/companies/sbank.svg", import.meta.url).href,
+    alt: "Совкомбанк",
+    type: "Финансы",
+    link: "https://sovcombank.ru/",
   },
   {
-    logo: new URL('@/assets/images/companies/stc.svg', import.meta.url).href,
-    alt: 'СТЦ',
-    type: 'IT',
-    link: 'https://stcgroup.ru/',
+    logo: new URL("@/assets/images/companies/stc.svg", import.meta.url).href,
+    alt: "СТЦ",
+    type: "IT",
+    link: "https://stcgroup.ru/",
   },
   {
-    logo: new URL('@/assets/images/companies/yadro.svg', import.meta.url).href,
-    alt: 'Ядро',
-    type: 'IT',
-    link: 'https://yadro.com/',
+    logo: new URL("@/assets/images/companies/yadro.svg", import.meta.url).href,
+    alt: "Ядро",
+    type: "IT",
+    link: "https://yadro.com/",
   },
   {
-    logo: new URL('@/assets/images/companies/zvezda.svg', import.meta.url).href,
-    alt: 'Звезда',
-    type: 'Производство',
-    link: 'https://zvezda.ru/',
+    logo: new URL("@/assets/images/companies/zvezda.svg", import.meta.url).href,
+    alt: "Звезда",
+    type: "Производство",
+    link: "https://zvezda.ru/",
   },
 ]);
-
 
 // 🔽 Фильтр
 const selectedType = ref("Все");
@@ -180,7 +182,6 @@ const filteredEmployers = computed(() => {
 }
 
 .employer-logo {
-
   max-height: 80px;
   object-fit: contain;
   transition: transform 0.3s;
