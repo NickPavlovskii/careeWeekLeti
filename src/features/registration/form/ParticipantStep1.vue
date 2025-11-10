@@ -2,7 +2,10 @@
   <div class="modal-shell">
     <div class="modal-card">
       <div class="left-illustration">
-        <img src="@/assets/images/participants/ImgParticipantReg.png" alt="illustration" />
+        <img
+          src="@/assets/images/participants/ImgParticipantReg.png"
+          alt="illustration"
+        />
       </div>
 
       <div class="right-form">
@@ -88,11 +91,7 @@
               </div>
             </div>
 
-            <button
-              type="submit"
-              class="btn-primary"
-              :disabled="!isStep1Valid"
-            >
+            <button type="submit" class="btn-primary" :disabled="!isStep1Valid">
               Дальше
             </button>
           </form>
@@ -156,25 +155,16 @@
         </section>
       </div>
     </div>
-
-    <!-- ✅ Кастомное уведомление -->
-    <Notification
-      v-if="showNotification"
-      type="success"
-      message="✅ Заявка успешно отправлена! Переход на главную..."
-      @close="showNotification = false"
-    />
   </div>
 </template>
 
 <script setup>
 import { reactive, ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import Notification from "@/shared/NotificationMessage.vue";
+import { notificationStore } from "@/store/notification.js";
 
 const router = useRouter();
 const step = ref(1);
-const showNotification = ref(false);
 
 const form = reactive({
   name: "",
@@ -187,31 +177,44 @@ const form = reactive({
   telegram: "",
 });
 
-const isStep1Valid = computed(() =>
-  form.name.trim() && form.university.trim() && form.source.trim()
+const isStep1Valid = computed(
+  () => form.name.trim() && form.university.trim() && form.source.trim()
 );
 
-const isStep2Valid = computed(() =>
-  form.email.trim() && form.phone.trim()
+const isStep2Valid = computed(
+  () => form.email.trim() && form.phone.trim()
 );
 
 function nextStep() {
-  if (isStep1Valid.value) step.value = 2;
+  if (isStep1Valid.value) {
+    step.value = 2;
+  } else {
+    notificationStore.add("error", "⚠️ Заполните все обязательные поля на шаге 1.");
+  }
 }
 
 function submitForm() {
-  if (isStep2Valid.value) {
-    console.log("✅ Отправленные данные:", { ...form });
-
-    // показать уведомление
-    showNotification.value = true;
-
-    // переход на главную через 2 секунды
-    setTimeout(() => {
-      showNotification.value = false;
-      router.push("/");
-    }, 2000);
+  if (!isStep2Valid.value) {
+    notificationStore.add("error", "⚠️ Заполните все обязательные поля на шаге 2.");
+    return;
   }
+
+  fetch("http://localhost:8081/api/participants", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Ошибка при отправке данных");
+      notificationStore.add("success", "✅ Заявка успешно отправлена!");
+      console.log("✅ Данные участника:", { ...form });
+
+      setTimeout(() => router.push("/"), 500);
+    })
+    .catch((err) => {
+      notificationStore.add("error", "❌ Ошибка при отправке данных");
+      console.error(err);
+    });
 }
 </script>
 
@@ -455,5 +458,27 @@ function submitForm() {
 .btn-primary:enabled:hover {
   transform: translateY(-1px);
   background: #2e6043;
+}
+@media (max-width: 980px) {
+  .left-illustration {
+    display: none;
+  }
+  .modal-card {
+    flex-direction: column;
+    max-width: 760px;
+  }
+  .left-illustration {
+    padding: 24px;
+  }
+  .right-form {
+    width: 100%;
+    padding: 24px;
+  }
+  .row {
+    flex-direction: column;
+  }
+  .col-1 {
+    max-width: none;
+  }
 }
 </style>

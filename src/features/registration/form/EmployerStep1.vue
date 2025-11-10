@@ -10,7 +10,7 @@
       <div class="right-form">
         <header class="form-header">
           <h1 class="title">Работодатели</h1>
-          <button class="close-btn" @click="$router.push('/')">
+          <button class="close-btn" @click="router.push('/')">
             <v-icon>mdi-close</v-icon>
           </button>
 
@@ -33,7 +33,7 @@
           </nav>
         </header>
 
-        <!-- === Шаг 1 === -->
+        <!-- Шаг 1 -->
         <section v-if="step === 1" class="section">
           <h2 class="section-title">Базовая информация</h2>
           <p class="hint">*Все поля обязательны для заполнения.</p>
@@ -81,7 +81,7 @@
           </form>
         </section>
 
-        <!-- === Шаг 2 === -->
+        <!-- Шаг 2 -->
         <section v-else class="section">
           <h2 class="section-title">Контактная информация</h2>
           <p class="hint">*Все поля обязательны для заполнения.</p>
@@ -103,7 +103,7 @@
             </div>
 
             <div class="field">
-              <label class="label" for="email">*Gmail</label>
+              <label class="label" for="email">*E-mail</label>
               <input
                 id="email"
                 v-model="form.email"
@@ -143,7 +143,10 @@
 
 <script setup>
 import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+import { notificationStore } from "@/store/notification.js";
 
+const router = useRouter();
 const step = ref(1);
 
 const form = reactive({
@@ -158,7 +161,7 @@ const form = reactive({
 
 function nextStep() {
   if (!form.fio || !form.company || !form.description) {
-    alert("Пожалуйста, заполните все обязательные поля.");
+    notificationStore.add("error", "⚠️ Заполните все обязательные поля.");
     return;
   }
   step.value = 2;
@@ -166,12 +169,27 @@ function nextStep() {
 
 function submitForm() {
   if (!form.phone || !form.email || !form.site || !form.agree) {
-    alert("Пожалуйста, заполните все обязательные поля и дайте согласие.");
+    notificationStore.add("error", "⚠️ Заполните все поля и подтвердите согласие.");
+    
     return;
   }
 
-  alert("Регистрация успешно завершена!");
-  console.log("Отправленные данные:", { ...form });
+  fetch("http://localhost:8081/api/company-participants", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  })
+    .then((res) => {
+      if (!res.ok) throw new Error("Ошибка при регистрации компании");
+      notificationStore.add("success", "✅ Компания успешно зарегистрирована!");
+      console.log("✅ Компания добавлена:", form);
+
+      setTimeout(() => router.push("/"), 500);
+    })
+    .catch((err) => {
+      notificationStore.add("error", "❌ Ошибка при отправке данных.");
+      console.error(err);
+    });
 }
 </script>
 
