@@ -174,22 +174,40 @@ function submitForm() {
     return;
   }
 
-  fetch("http://localhost:8081/api/company-participants", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Ошибка при регистрации компании");
-      notificationStore.add("success", "✅ Компания успешно зарегистрирована!");
-      console.log("✅ Компания добавлена:", form);
+fetch("http://localhost:8081/api/company-participants", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(form),
+})
+  .then(async (res) => {
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => null);
 
-      setTimeout(() => router.push("/"), 500);
-    })
-    .catch((err) => {
-      notificationStore.add("error", "❌ Ошибка при отправке данных.");
-      console.error(err);
-    });
+      // Если сервер прислал error.code
+      if (errorData && errorData.code) {
+        switch (errorData.code) {
+          case "EMAIL_EXISTS":
+            throw new Error("Этот email уже зарегистрирован!");
+          case "PHONE_EXISTS":
+            throw new Error("Этот номер телефона уже зарегистрирован!");
+          default:
+            throw new Error(errorData.message || "Неизвестная ошибка сервера");
+        }
+      }
+
+      throw new Error("Ошибка при регистрации компании");
+    }
+
+    notificationStore.add("success", "✅ Компания успешно зарегистрирована!");
+    console.log("✅ Компания добавлена:", form);
+
+    setTimeout(() => router.push("/"), 500);
+  })
+  .catch((err) => {
+    notificationStore.add("error", "❌ " + err.message);
+    console.error(err);
+  });
+
 }
 </script>
 
