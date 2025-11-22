@@ -20,21 +20,19 @@
             alt="Иллюстрация справа"
             class="side-image right-image"
           />
-          <img src="@/assets/images/map/map_exp.png" alt="" class="map-image" />
-          <!-- <yandex-map
-            :settings="mapSettings"
-            style="width: 650px; height: 550px"
-          >
-            <ymap-marker
-              :coords="[55.751244, 37.618423]"
-              :properties="{ balloonContent: 'Т-Банк — Карьерная неделя' }"
-            />
-          </yandex-map> -->
+          <iframe 
+            class="map-image" 
+            src="https://yandex.ru/map-widget/v1/?um=constructor%3A3cbc00c70d6b38399095d4bf78198ec3a8bfd52123419f80918e27944f51f18a&amp;source=constructor" 
+            width="808" 
+            height="518" 
+            frameborder="0">
+          </iframe>А
         </div>
       </div>
     </div>
   </section>
 </template>
+
 
 <script setup>
 // import { yandexMap, ymapMarker } from 'vue-yandex-maps'
@@ -130,7 +128,6 @@
 
 .map-image {
   width: 100%;
-  height: auto;
   border-radius: 16px;
   display: block;
   margin: 0 auto;
@@ -191,7 +188,7 @@
     left: -30x;
   }
 
-  .map-image[data-v-006555fe] {
+  .map-image {
     width: 90%;
   }
 }
