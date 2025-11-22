@@ -12,6 +12,8 @@ import EmployerStep1 from './features/registration/form/EmployerStep1.vue';
 
 import RegistrationSelection from '@/pages/RegistrationSelection.vue';
 
+import NotFound from '@/pages/NotFound.vue';
+
 const routes = [
   {
     path: '/',
@@ -50,7 +52,15 @@ const routes = [
       header: CareerHeader,
     },
   },
-
+// === 404 (всегда последний!) ===
+{
+  path: '/:pathMatch(.*)*',
+  name: 'NotFound',
+  components: {
+    default: NotFound,
+    header: CareerHeader, // или убери, если хедер не нужен
+  },
+},
 ];
 
 const router = createRouter({
