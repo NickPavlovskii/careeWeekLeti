@@ -1,7 +1,13 @@
 <template>
   <div class="modal-shell">
     <div class="modal-card">
-      <!-- Левая часть с иллюстрацией -->
+      <div v-if="loading" class="preloader-overlay">
+        <v-progress-circular
+          :size="50"
+          color="green"
+          indeterminate
+        ></v-progress-circular>
+    </div>
       <div class="left-illustration">
         <img src="@/assets/images/employers/ImgEmployerReg.png" alt="illustration" />
       </div>
@@ -149,6 +155,8 @@ import { notificationStore } from "@/store/notification.js";
 const router = useRouter();
 const step = ref(1);
 
+const loading = ref(false);
+
 const form = reactive({
   fio: "",
   company: "",
@@ -173,7 +181,7 @@ function submitForm() {
     
     return;
   }
-
+  loading.value = true;
 fetch("http://localhost:8081/api/company-participants", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
@@ -204,6 +212,7 @@ fetch("http://localhost:8081/api/company-participants", {
     setTimeout(() => router.push("/"), 500);
   })
   .catch((err) => {
+    loading.value = false;
     notificationStore.add("error", "❌ " + err.message);
     console.error(err);
   });
@@ -221,6 +230,19 @@ fetch("http://localhost:8081/api/company-participants", {
   padding: 32px;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.02);
+}
+.preloader-overlay {
+  position: absolute; /* поверх всего модального окна */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* полупрозрачный фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* поверх всего */
+  pointer-events: all; /* блокирует клики по форме под overlay */
 }
 
 .modal-card {
