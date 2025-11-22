@@ -1,6 +1,14 @@
 <template>
   <div class="modal-shell">
     <div class="modal-card">
+
+      <div v-if="loading" class="preloader-overlay">
+        <v-progress-circular
+          :size="50"
+          color="green"
+          indeterminate
+        ></v-progress-circular>
+    </div>
       <div class="left-illustration">
         <img
           src="@/assets/images/participants/ImgParticipantReg.png"
@@ -165,6 +173,7 @@ import { notificationStore } from "@/store/notification.js";
 
 const router = useRouter();
 const step = ref(1);
+const loading = ref(false);
 
 const form = reactive({
   name: "",
@@ -193,24 +202,29 @@ function nextStep() {
   }
 }
 
-function submitForm() {
+import { nextTick } from 'vue';
+
+async function submitForm() {
   if (!isStep2Valid.value) {
     notificationStore.add("error", "⚠️ Заполните все обязательные поля на шаге 2.");
     return;
   }
 
-fetch("http://localhost:8081/api/participants", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(form),
-})
-  .then(async (res) => {
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => null);
+  loading.value = true;
+  await nextTick(); 
 
-      // Если сервер прислал ошибку в формате { code: "...", message: "..." }
-      if (errorData && errorData.code) {
-        switch (errorData.code) {
+  fetch("http://localhost:8081/api/participants", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(form),
+  })
+    .then(async (res) => {
+      loading.value = false;
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => null);
+        if (errorData && errorData.code) {
+          switch (errorData.code) {
           case "EMAIL_EXISTS":
             throw new Error("Этот email уже зарегистрирован!");
           case "PHONE_EXISTS":
@@ -219,27 +233,24 @@ fetch("http://localhost:8081/api/participants", {
             throw new Error("Этот паспорт уже зарегистрирован!");
           default:
             throw new Error(errorData.message || "Неизвестная ошибка сервера");
+          }
         }
+        throw new Error("Ошибка при отправке данных");
       }
 
-      throw new Error("Ошибка при отправке данных");
-    }
-
-    notificationStore.add("success", "✅ Заявка успешно отправлена!");
-    console.log("✅ Данные участника:", { ...form });
-
-    setTimeout(() => router.push("/"), 500);
-  })
-  .catch((err) => {
-    notificationStore.add("error", "❌ " + err.message);
-    console.error(err);
-  });
+      notificationStore.add("success", "✅ Заявка успешно отправлена!");
+      setTimeout(() => router.push("/"), 500);
+    })
+    .catch((err) => {
+      loading.value = false;
+      notificationStore.add("Ошибка при отправке данных ");
+      console.error(err);
+    });
 
 }
 </script>
 
 <style scoped>
-/* === все твои стили === */
 .modal-shell {
   width: 100%;
   min-height: 100vh;
