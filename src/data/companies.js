@@ -4,6 +4,9 @@ import baltika from "../assets/images/company/baltika.svg";
 import stc from "../assets/images/company/stc.svg";
 import yadro from "../assets/images/company/yadro.svg";
 import sbank from "../assets/images/company/sbank.svg";
+import microsoft from "../assets/images/company/microsoft.svg";
+import yandex from "../assets/images/company/yandex.svg";
+import google from "../assets/images/company/google.svg";
 
 export default [
   {
