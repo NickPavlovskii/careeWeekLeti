@@ -103,10 +103,10 @@ import { notificationStore } from "@/store/notification.js";
   border-bottom-left-radius: 12px;
 }
 
-.indicator--success { background-color: #45c349; }
-.indicator--error { background-color: #eb2e21; }
-.indicator--warning { background-color: #d78100; }
-.indicator--info { background-color: #1590f6; }
+.indicator--success { background-color: #4dcb52; }
+.indicator--error { background-color: #ec3325; }
+.indicator--warning { background-color: #cd7d05; }
+.indicator--info { background-color: #1387e7; }
 
 .notification__icon { font-size: 1.4rem; }
 .notification__content { display: flex; align-items: center; flex: 1; gap: 12px; }

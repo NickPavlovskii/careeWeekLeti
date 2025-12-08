@@ -116,7 +116,7 @@
   width: 370px;
   border: 2px solid black;
   border-radius: 16px;
-  color: #5b678c;
+  color: #576284;
   background: #fff;
 }
 

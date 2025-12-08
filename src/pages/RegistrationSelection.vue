@@ -49,7 +49,7 @@
 .card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(10, 9, 9, 0.1);
+  box-shadow: 0 4px 10px rgba(12, 10, 10, 0.1);
   padding: 20px;
   width: 300px;
   transition: transform 0.2s;
@@ -71,10 +71,10 @@
 
 .btn {
   margin-top: 15px;
-  background: #0163d2;
+  background: #0662cc;
   color: white;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 17px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
