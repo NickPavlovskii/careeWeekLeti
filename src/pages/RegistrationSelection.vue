@@ -22,9 +22,7 @@
   </div>
 </template>
 
-<script setup>
-// Ничего сложного не нужно — просто переход по клику
-</script>
+
 
 <style scoped>
 .registration-select {
@@ -63,12 +61,12 @@
 
 .card img {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 11px;
 }
 
 .card h2 {
   margin-top: 15px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .btn {
@@ -81,6 +79,7 @@
   cursor: pointer;
   transition: background 0.3s;
 }
+
 
 .btn:hover {
   background: #005fd1;
