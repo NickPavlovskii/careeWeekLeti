@@ -37,6 +37,24 @@ export default [
     link: "https://www.yadro.com"
   },
   {
+    logo: google,
+    alt: "Гугл",
+    type: "IT",
+    link: "https://www.google.com"
+  },
+  {
+    logo: yandex,
+    alt: "Яндекс",
+    type: "IT",
+    link: "https://ya.ru"
+  },
+  {
+    logo: microsoft,
+    alt: "Майкрософт",
+    type: "IT",
+    link: "https://microsoft.com"
+  },
+  {
     logo: sbank,
     alt: "СБанк",
     type: "IT",
