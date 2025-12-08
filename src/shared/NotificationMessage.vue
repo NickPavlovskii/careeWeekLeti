@@ -56,8 +56,8 @@ import { notificationStore } from "@/store/notification.js";
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
 }
-.indicator--success { background-color: #4caf50; }
-.indicator--error { background-color: #f44336; }
+.indicator--success { background-color: #45c349; }
+.indicator--error { background-color: #eb2e21; }
 .notification__close {
   background: none;
   border: none;
@@ -103,10 +103,10 @@ import { notificationStore } from "@/store/notification.js";
   border-bottom-left-radius: 12px;
 }
 
-.indicator--success { background-color: #4caf50; }
-.indicator--error { background-color: #f44336; }
-.indicator--warning { background-color: #ff9800; }
-.indicator--info { background-color: #2196f3; }
+.indicator--success { background-color: #45c349; }
+.indicator--error { background-color: #eb2e21; }
+.indicator--warning { background-color: #d78100; }
+.indicator--info { background-color: #1590f6; }
 
 .notification__icon { font-size: 1.4rem; }
 .notification__content { display: flex; align-items: center; flex: 1; gap: 12px; }
