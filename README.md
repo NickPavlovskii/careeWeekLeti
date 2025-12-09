@@ -57,5 +57,5 @@ npm run serve
 # Сборка проекта для продакшена
 npm run build
 
-
+```
 серверная часть приватная https://github.com/NickPavlovskii/careeweekserver
