@@ -16,7 +16,12 @@
   <CareerMap />
   <DotsBox />
   <CareerLecture />
-  <CareerHallMap />
+  <section class="hall-map-section">
+    <div class="hall-map-container">
+      <h2 class="section-title">Схема зала</h2>
+      <InteractiveHallSvg />
+    </div>
+  </section>
   <CareerFooter />
 </template>
 
@@ -30,7 +35,7 @@ import ScheduleTable from "@/entities/lecture/ScheduleTable.vue";
 import DotsBox from "@/shared/DotsBox.vue";
 import CareerMap from "@/entities/map/CareerMap.vue";
 import CareerLecture from "@/entities/lecture/CareerLecture.vue";
-import CareerHallMap from "@/entities/map/CareerHallMap.vue";
+import InteractiveHallSvg from "@/entities/map/InteractiveHallSvg.vue";
 import CareerFooter from "../layouts/CareerFooter.vue";
 
 const day1 = [
@@ -48,3 +53,25 @@ const day2 = [
   { name: "Лекции (выступление спикеров)", time: "13:30–17:00", place: "" },
 ];
 </script>
+
+<style scoped>
+.hall-map-section {
+  margin-bottom: 56px;
+  padding: 0 24px;
+}
+
+.hall-map-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hall-map-section .section-title {
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+  color: #1a1a2e;
+  margin: 0 0 24px;
+  font-family: "Work Sans", sans-serif;
+  letter-spacing: -0.02em;
+}
+</style>

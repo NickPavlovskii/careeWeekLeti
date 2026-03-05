@@ -1,6 +1,16 @@
 <template>
   <div class="modal-shell">
     <div class="modal-card">
+      <div
+        v-if="loading"
+        class="preloader-overlay"
+      >
+        <v-progress-circular
+          :size="50"
+          color="green"
+          indeterminate
+        />
+      </div>
       <div class="left-illustration">
         <div
           v-if="!imgLoaded"
@@ -304,6 +314,8 @@ const step = ref(1);
 const focused = ref(null);
 const imgLoaded = ref(false);
 
+const loading = ref(false);
+
 const form = reactive({
   fio: "",
   company: "",
@@ -382,6 +394,19 @@ function submitForm() {
   padding: 24px;
   box-sizing: border-box;
   background: linear-gradient(135deg, #f0f4f8 0%, #e8edf5 100%);
+}
+.preloader-overlay {
+  position: absolute; /* поверх всего модального окна */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* полупрозрачный фон */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* поверх всего */
+  pointer-events: all; /* блокирует клики по форме под overlay */
 }
 
 .modal-card {

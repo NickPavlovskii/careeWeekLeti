@@ -1,6 +1,16 @@
 <template>
   <div class="modal-shell">
     <div class="modal-card">
+      <div
+        v-if="loading"
+        class="preloader-overlay"
+      >
+        <v-progress-circular
+          :size="50"
+          color="green"
+          indeterminate
+        />
+      </div>
       <div class="left-illustration">
         <div
           v-if="!imgLoaded"
@@ -354,6 +364,7 @@ const router = useRouter();
 const step = ref(1);
 const focused = ref(null);
 const imgLoaded = ref(false);
+const loading = ref(false);
 
 const form = reactive({
   name: "",
@@ -382,7 +393,7 @@ function nextStep() {
   }
 }
 
-function submitForm() {
+async function submitForm() {
   if (!isStep2Valid.value) {
     notificationStore.add("error", "Заполните все обязательные поля на шаге 2.");
     return;
@@ -394,6 +405,7 @@ function submitForm() {
     body: JSON.stringify(form),
   })
     .then(async (res) => {
+
       if (!res.ok) {
         const errorData = await res.json().catch(() => null);
         if (errorData && errorData.code) {
@@ -411,12 +423,15 @@ function submitForm() {
         throw new Error("Ошибка при отправке данных");
       }
 
-      notificationStore.add("success", "Заявка успешно отправлена!");
+      notificationStore.add("success", "✅ Заявка успешно отправлена!");
       setTimeout(() => router.push("/"), 500);
     })
     .catch((err) => {
-      notificationStore.add("error", err.message);
+      loading.value = false;
+      notificationStore.add("Ошибка при отправке данных ");
+      console.error(err);
     });
+
 }
 </script>
 

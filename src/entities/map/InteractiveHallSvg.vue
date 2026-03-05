@@ -4,44 +4,62 @@
 <!-- ============================================ -->
 <template> 
   <div class="map-interactive">
-    <div class="legend">
-      <div class="legend-item">
-        <span
-          class="legend-color"
-          style="background: #a8c9ff"
-        />
-        Лектории
+    <div class="map-wrap">
+      <div class="top-bar">
+        <div
+          v-show="isInteractive"
+          class="legend"
+        >
+          <div class="legend-item">
+            <span class="legend-color" style="background: #a8c9ff" />
+            Лектории
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #c8e6c9" />
+            Рабочие зоны
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #ffe0b2" />
+            Отдых / кухня
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background: #d5d5d5" />
+            Служебные
+          </div>
+        </div>
+        <div class="switcher-side">
+          <button
+            type="button"
+            class="switcher-btn"
+            :class="{ active: isInteractive }"
+            @click="isInteractive = true"
+          >
+            Интерактивная
+          </button>
+          <button
+            type="button"
+            class="switcher-btn"
+            :class="{ active: !isInteractive }"
+            @click="isInteractive = false"
+          >
+            Схема
+          </button>
+        </div>
       </div>
-      <div class="legend-item">
-        <span
-          class="legend-color"
-          style="background: #c8e6c9"
-        />
-        Рабочие зоны
-      </div>
-      <div class="legend-item">
-        <span
-          class="legend-color"
-          style="background: #ffe0b2"
-        />
-        Отдых / кухня
-      </div>
-      <div class="legend-item">
-        <span
-          class="legend-color"
-          style="background: #d5d5d5"
-        />
-        Служебные
-      </div>
-    </div>
 
-    <svg
-      viewBox="0 0 1000 770"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="xMidYMid meet"
-      @mousemove="moveTooltip"
-      @mouseleave="hideTooltip"
-    >
+      <transition
+        name="map-fade"
+        mode="out-in"
+      >
+        <svg
+          v-if="isInteractive"
+          key="interactive"
+          viewBox="0 0 1000 770"
+          xmlns="http://www.w3.org/2000/svg"
+          preserveAspectRatio="xMidYMid meet"
+          @mousemove="moveTooltip"
+          @mouseleave="hideTooltip"
+        >
       <!-- ============ Building outline ============ -->
       <rect
         x="15"
@@ -1067,10 +1085,24 @@
         </g>
       </g>
     </svg>
+        <div
+          v-else
+          key="static"
+          class="static-image"
+        >
+          <ImageWithSkeleton
+            :src="planImg"
+            alt="Схема зала"
+            wrap-class="hall-plan-wrap"
+            img-class="hall-plan-img"
+          />
+        </div>
+      </transition>
+    </div>
 
-    <!-- Tooltip -->
+    <!-- Tooltip (только в интерактивном режиме) -->
     <div
-      v-if="tooltip.visible"
+      v-if="isInteractive && tooltip.visible"
       class="tooltip"
       :style="{ top: tooltip.y + 'px', left: tooltip.x + 'px' }"
     >
@@ -1083,8 +1115,11 @@
 
 <script setup>
 import { ref, reactive } from "vue";
+import ImageWithSkeleton from "@/shared/ImageWithSkeleton.vue";
+import planImg from "@/assets/images/icons/plan.png";
 
 const hoveredSeat = ref(null);
+const isInteractive = ref(false);
 
 const zones = reactive({
   lectorium1: {
@@ -1239,22 +1274,37 @@ function emitZone(zone) {
 <style scoped>
 .map-interactive {
   position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.map-wrap {
+  padding: 0 0 8px;
+}
+
+.top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
 .legend {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  align-items: center;
+  gap: 20px;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 13px;
-  color: #555;
+  font-weight: 500;
+  color: #374151;
 }
 
 .legend-color {
@@ -1262,16 +1312,91 @@ function emitZone(zone) {
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  flex-shrink: 0;
 }
 
-svg {
+.switcher-side {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 999px;
+  padding: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.switcher-btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.25s ease, background 0.25s ease, box-shadow 0.2s ease;
+}
+
+.switcher-btn:hover {
+  color: #374151;
+}
+
+.switcher-btn.active {
+  background: #fff;
+  color: #1a1a2e;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.map-fade-enter-active,
+.map-fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.map-fade-enter-from,
+.map-fade-leave-to {
+  opacity: 0;
+}
+
+.static-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.hall-plan-wrap {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.hall-plan-wrap :deep(.skeleton-pulse) {
+  border-radius: 16px;
+  min-height: 320px;
+}
+
+.hall-plan-wrap :deep(.img-skeleton-img) {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.static-image .hall-plan-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.map-wrap svg {
   width: 100%;
   height: auto;
-  border: 2px solid #ddd;
-  border-radius: 12px;
-  background: #fff;
+  display: block;
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  background: #fff;
 }
 
 .zone {
@@ -1333,18 +1458,29 @@ svg {
 }
 
 @media (max-width: 768px) {
+  .top-bar {
+    margin-bottom: 16px;
+    gap: 12px;
+  }
   .legend {
-    gap: 8px;
+    gap: 12px;
   }
   .legend-item {
-    font-size: 11px;
+    font-size: 12px;
   }
   .legend-color {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
-  svg {
-    border-radius: 8px;
+  .switcher-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+  .map-wrap svg {
+    border-radius: 12px;
+  }
+  .static-image img {
+    border-radius: 12px;
   }
   .tooltip {
     font-size: 11px;
@@ -1353,12 +1489,24 @@ svg {
 }
 
 @media (max-width: 480px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 12px;
+  }
+  .switcher-side {
+    justify-content: center;
+  }
   .legend {
-    gap: 6px;
-    margin-bottom: 10px;
+    justify-content: center;
+    gap: 8px;
   }
   .legend-item {
-    font-size: 10px;
+    font-size: 11px;
+  }
+  .legend-color {
+    width: 12px;
+    height: 12px;
   }
 }
 </style>

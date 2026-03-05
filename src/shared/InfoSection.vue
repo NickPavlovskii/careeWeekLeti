@@ -60,7 +60,7 @@
 }
 
 .info.active {
-  background-color: rgba(108, 31, 184, 0.15);
+  background-color: rgba(105, 31, 180, 0.15);
 }
 
 .container {
@@ -95,7 +95,7 @@
 
 .subtitle {
   font-size: 40px;
-  color: #6b7280;
+  color: #8a94a7;
   margin-bottom: 20px;
 }
 
@@ -119,7 +119,7 @@
 
 .cta-primary {
   width: 370px;
-  background-color: rgba(108, 31, 184, 0.64);
+  background-color: rgba(105, 31, 180, 0.64);
   color: white;
 }
 .cta-primary-subtitle {
@@ -132,7 +132,7 @@
   width: 370px;
   border: 2px solid black;
   border-radius: 16px;
-  color: #5a6482;
+  color: #576284;
   background: #fff;
 }
 

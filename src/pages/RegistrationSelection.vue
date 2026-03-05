@@ -71,7 +71,7 @@ import employerImg from "@/assets/images/employers/ImgEmployerReg.png";
 .card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(12, 10, 10, 0.1);
   padding: 20px;
   width: 300px;
   transition: transform 0.2s;
@@ -88,24 +88,25 @@ import employerImg from "@/assets/images/employers/ImgEmployerReg.png";
 
 .card-img-wrap :deep(.img-skeleton-img) {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 11px;
 }
 
 .card h2 {
   margin-top: 15px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .btn {
   margin-top: 15px;
-  background: #0077ff;
+  background: #0662cc;
   color: white;
   border: none;
-  padding: 10px 18px;
+  padding: 10px 17px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
 }
+
 
 .btn:hover {
   background: #005fd1;

@@ -121,6 +121,24 @@ const employers = ref([
     type: "Производство",
     link: "https://zvezda.ru/",
   },
+  {
+    logo: new URL("@/assets/images/companies/google.svg", import.meta.url).href,
+    alt: "Google",
+    type: "IT",
+    link: "https://www.google.com/about/careers/",
+  },
+  {
+    logo: new URL("@/assets/images/companies/yandex.svg", import.meta.url).href,
+    alt: "Яндекс",
+    type: "IT",
+    link: "https://yandex.ru/jobs/",
+  },
+  {
+    logo: new URL("@/assets/images/companies/microsoft.svg", import.meta.url).href,
+    alt: "Microsoft",
+    type: "IT",
+    link: "https://careers.microsoft.com/",
+  },
 ]);
 
 const selectedType = ref("Все");

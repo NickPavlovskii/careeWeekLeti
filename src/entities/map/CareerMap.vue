@@ -2,7 +2,6 @@
   <section class="map-section">
     <div class="container">
       <section-heading>Как нас найти</section-heading>
-
       <div class="map-wrapper">
         <img
           alt=""
@@ -14,11 +13,12 @@
           class="side-image right-image"
           :src="mapIconRight"
         >
-        <img
+        <ImageWithSkeleton
           :src="mapExp"
           alt="Карта"
-          class="map-image"
-        >
+          wrap-class="map-image-wrap"
+          img-class="map-image"
+        />
       </div>
     </div>
   </section>
@@ -26,6 +26,7 @@
 
 <script setup>
 import SectionHeading from "@/shared/SectionHeading.vue";
+import ImageWithSkeleton from "@/shared/ImageWithSkeleton.vue";
 import mapIconLeft from "@/assets/images/map/map-icon-left.png";
 import mapIconRight from "@/assets/images/map/map-icon-right.png";
 import mapExp from "@/assets/images/map/map_exp.png";
@@ -46,6 +47,23 @@ import mapExp from "@/assets/images/map/map_exp.png";
   width: 100%;
 }
 
+.map-image-wrap {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.map-image-wrap :deep(.img-skeleton-img) {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.map-image-wrap :deep(.skeleton-pulse) {
+  border-radius: 16px;
+  min-height: 280px;
+}
+
 .side-image {
   position: absolute;
   transform: translateY(-50%);
@@ -62,9 +80,8 @@ import mapExp from "@/assets/images/map/map_exp.png";
   top: 84%;
 }
 
-.map-image {
+.map-image-wrap .map-image {
   width: 100%;
-  height: auto;
   border-radius: 16px;
   display: block;
   margin: 0 auto;
