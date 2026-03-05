@@ -1,20 +1,38 @@
 <template>
   <div class="registration-select">
-    <h1 class="title">Выберите, для кого регистрация</h1>
+    <h1 class="title">
+      Выберите, для кого регистрация
+    </h1>
 
     <div class="options">
       <div class="card">
-        <img src="@/assets/images/participants/ImgParticipantReg.png" alt="Участники" />
+        <ImageWithSkeleton
+          :src="participantImg"
+          alt="Участники"
+          wrap-class="card-img-wrap"
+          img-class="card-img"
+        />
         <h2>Участники</h2>
-        <button @click="$router.push('/registration/participant')" class="btn">
+        <button
+          class="btn"
+          @click="$router.push('/registration/participant')"
+        >
           Регистрация участника
         </button>
       </div>
 
       <div class="card">
-        <img src="@/assets/images/employers/ImgEmployerReg.png" alt="Работодатели" />
+        <ImageWithSkeleton
+          :src="employerImg"
+          alt="Работодатели"
+          wrap-class="card-img-wrap"
+          img-class="card-img"
+        />
         <h2>Работодатели</h2>
-        <button @click="$router.push('/registration/employer')" class="btn">
+        <button
+          class="btn"
+          @click="$router.push('/registration/employer')"
+        >
           Регистрация работодателя
         </button>
       </div>
@@ -23,7 +41,9 @@
 </template>
 
 <script setup>
-// Ничего сложного не нужно — просто переход по клику
+import ImageWithSkeleton from "@/shared/ImageWithSkeleton.vue";
+import participantImg from "@/assets/images/participants/ImgParticipantReg.png";
+import employerImg from "@/assets/images/employers/ImgEmployerReg.png";
 </script>
 
 <style scoped>
@@ -61,7 +81,12 @@
   transform: translateY(-5px);
 }
 
-.card img {
+.card-img-wrap {
+  min-height: 200px;
+  border-radius: 12px;
+}
+
+.card-img-wrap :deep(.img-skeleton-img) {
   width: 100%;
   border-radius: 12px;
 }

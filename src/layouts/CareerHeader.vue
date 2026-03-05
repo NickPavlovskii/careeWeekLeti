@@ -1,36 +1,57 @@
 <template>
   <header class="header">
     <div class="container_header">
-      <nav class="navbar" :class="{ open: menuOpen }">
+      <nav
+        class="navbar"
+        :class="{ open: menuOpen }"
+      >
         <ul class="nav-left">
           <li>
-            <router-link to="/registration/participant" class="nav-link">
+            <router-link
+              to="/registration/participant"
+              class="nav-link"
+            >
               Участвовать бесплатно
             </router-link>
           </li>
-          <router-link to="/registration/employer" class="nav-link">
+          <router-link
+            to="/registration/employer"
+            class="nav-link"
+          >
             Работодателям
           </router-link>
         </ul>
         <ul class="nav-right">
           <li>
-            <a href="#" @click.prevent="scrollTo('partners')">Партнеры</a>
+            <a
+              href="#"
+              @click.prevent="scrollTo('partners')"
+            >Партнеры</a>
           </li>
           <li>
-            <a href="#" @click.prevent="scrollTo('location')">Когда и где?</a>
+            <a
+              href="#"
+              @click.prevent="scrollTo('location')"
+            >Когда и где?</a>
           </li>
           <li>
-            <a href="#"><img src="../assets/images/icons/VK.svg" alt="VK" /></a>
+            <a href="#"><img
+              src="../assets/images/icons/VK.svg"
+              alt="VK"
+            ></a>
           </li>
           <li><a href="#">Скачать программу</a></li>
         </ul>
       </nav>
 
       <!-- Бургер справа -->
-      <div class="burger" @click="toggleMenu">
-        <span :class="{ open: menuOpen }"></span>
-        <span :class="{ open: menuOpen }"></span>
-        <span :class="{ open: menuOpen }"></span>
+      <div
+        class="burger"
+        @click="toggleMenu"
+      >
+        <span :class="{ open: menuOpen }" />
+        <span :class="{ open: menuOpen }" />
+        <span :class="{ open: menuOpen }" />
       </div>
     </div>
   </header>

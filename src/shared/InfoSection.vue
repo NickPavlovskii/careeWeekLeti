@@ -1,19 +1,35 @@
 <template>
-  <section id="location" class="info">
+  <section
+    id="location"
+    class="info"
+  >
     <div class="container">
       <div class="branding">
-        <p class="eyebrow">ПРОСТО</p>
-        <h1 class="title">Студенческая карьерная неделя</h1>
-        <p class="subtitle">Начать карьеру легко.</p>
+        <p class="eyebrow">
+          ПРОСТО
+        </p>
+        <h1 class="title">
+          Студенческая карьерная неделя
+        </h1>
+        <p class="subtitle">
+          Начать карьеру легко.
+        </p>
 
         <div class="cta-buttons">
           <div class="cta cta-primary">
-            <p class="cta-subtitle">14,15 И 16 МАЯ В 11:00</p>
+            <p class="cta-subtitle">
+              14,15 И 16 МАЯ В 11:00
+            </p>
           </div>
           <div class="cta cta-primary cta-primary-subtitle">
-            <p class="cta-subtitle">ПРОСТО НА КАРПОВКЕ</p>
+            <p class="cta-subtitle">
+              ПРОСТО НА КАРПОВКЕ
+            </p>
           </div>
-          <button @click="$router.push('/registration')" class="cta cta-outline reg" >
+          <button
+            class="cta cta-outline reg"
+            @click="$router.push('/registration')"
+          >
             <p>Зарегистрироваться</p>
           </button>
         </div>
@@ -23,7 +39,7 @@
         <img
           src="../assets/images/icons/logo.png"
           alt="Студенческая Карьерная Неделя"
-        />
+        >
       </div>
     </div>
   </section>

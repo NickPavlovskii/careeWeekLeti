@@ -1,13 +1,18 @@
 <template>
-  <CareerHeader />
   <InfoSection />
   <CareerSponsors />
   <WhyParticipate />
   <CareerDetailed />
   <CareerCompany />
-  <ScheduleTable :day="1" :items="day1" />
+  <ScheduleTable
+    :day="1"
+    :items="day1"
+  />
   <DotsBox />
-  <ScheduleTable :day="2" :items="day2" />
+  <ScheduleTable
+    :day="2"
+    :items="day2"
+  />
   <CareerMap />
   <DotsBox />
   <CareerLecture />
@@ -18,7 +23,6 @@
 <script setup>
 import CareerDetailed from "../entities/company/CareerDetailed.vue";
 import CareerCompany from "../entities/company/CareerCompany.vue";
-import CareerHeader from "../layouts/CareerHeader.vue";
 import InfoSection from "../shared/InfoSection.vue";
 import CareerSponsors from "../entities/sponsor/CareerSponsors.vue";
 import WhyParticipate from "../shared/WhyParticipate.vue";

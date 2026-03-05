@@ -2,12 +2,7 @@
   <section class="infos">
     <div class="container">
       <div class="why-particip">
-        <div class="why-participate-cont">
-          <div class="why-participate">
-            <h2>Почему стоит принять участие?</h2>
-          </div>
-          <div class="why-bg"></div>
-        </div>
+        <section-heading>Почему стоит принять участие?</section-heading>
         <p class="why-participate-title">
           Даст возможность познакомиться и пообщаться с людьми, чьи интересы и
           увлечения близки к моим собственным. Также набраться больше опыта.
@@ -15,18 +10,34 @@
       </div>
 
       <div class="benefits">
-        <div class="benefit" v-for="(benefit, index) in benefits" :key="index">
-          <img :src="benefit.icon" :alt="benefit.text" />
+        <div
+          v-for="(benefit, index) in benefits"
+          :key="index"
+          class="benefit"
+        >
+          <ImageWithSkeleton
+            :src="benefit.icon"
+            :alt="benefit.text"
+            wrap-class="benefit-icon-wrap"
+            img-class="benefit-icon"
+          />
           <p>{{ benefit.text }}</p>
         </div>
       </div>
 
-      <img :src="dogImg" class="dog-img" />
+      <ImageWithSkeleton
+        :src="dogImg"
+        alt=""
+        wrap-class="dog-wrap"
+        img-class="dog-img"
+      />
     </div>
   </section>
 </template>
 
 <script setup>
+import SectionHeading from "@/shared/SectionHeading.vue";
+import ImageWithSkeleton from "@/shared/ImageWithSkeleton.vue";
 import workIcon from "@/assets/images/icons/work-icon.svg";
 import partyIcon from "@/assets/images/icons/party-icon.svg";
 import userIcon from "@/assets/images/icons/user.svg";
@@ -43,9 +54,7 @@ const benefits = [
 
 <style scoped>
 .dog-img {
-  position: absolute;
-  right: 0px;
-  bottom: -250px;
+  display: block;
 }
 
 .infos {
@@ -74,41 +83,6 @@ const benefits = [
   gap: 40px;
 }
 
-.why-participate-cont {
-  min-width: 300px;
-  position: relative;
-}
-
-.why-participate {
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
-  border: 4px solid rgb(48, 48, 49);
-  border-radius: 16px;
-  background: #fff;
-  padding: 24px;
-  z-index: 2;
-}
-
-.why-bg {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  border-radius: 16px;
-  width: 100%;
-  height: 100%;
-  background: rgb(113, 168, 148);
-  z-index: 1;
-}
-
-.why-participate h2 {
-  color: rgb(90, 100, 130);
-  font-family: "Work Sans", sans-serif;
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
 .why-participate-title {
   margin-top: 20px;
   color: #000;
@@ -121,26 +95,45 @@ const benefits = [
 }
 
 .benefits {
+  margin-top: 40px;
   flex: 1 1 45%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  gap: 24px;
 }
 
 .benefit {
   text-align: center;
 }
 
-.benefit img {
-  width: 100px;
+.benefit-icon-wrap {
+  min-height: 44px;
+  min-width: 44px;
+  max-width: 75px;
+  margin: 0 auto 8px;
+}
+
+.benefit-icon-wrap :deep(.img-skeleton-img) {
+  width: 75px;
   height: auto;
-  margin-bottom: 12px;
+}
+
+.dog-wrap {
+  position: absolute;
+  right: 0;
+  bottom: -250px;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+.dog-wrap :deep(.img-skeleton-img) {
+  display: block;
 }
 
 .benefit p {
   color: rgb(90, 100, 130);
   font-family: "Work Sans", sans-serif;
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 500;
   margin: 0;
 }
@@ -162,16 +155,8 @@ const benefits = [
     border: none;
   }
 
-  .why-participate-cont,
   .benefits {
     flex: 1 1 100%;
-  }
-
-  .why-bg {
-    display: none;
-  }
-
-  .benefits {
     max-width: 1200px;
     padding: 0 20px;
     text-align: center;
@@ -180,46 +165,41 @@ const benefits = [
     border: 5px solid rgba(31, 184, 147, 0.17);
     background: rgba(255, 255, 255, 0.3);
     border-radius: 16px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .benefits .benefit {
-    width: 100px;
-    margin: 22px 65px;
+    margin: 16px 24px;
   }
 
   .why-participate-title {
     display: none;
-  }
-
-  .why-participate h2 {
-    font-size: 28px;
-  }
-
-  .why-participate-title {
     font-size: 18px;
   }
 
-  .benefits {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .benefit p {
-    font-size: 22px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 600px) {
   .benefits {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 
-  .benefit img {
-    width: 80px;
+  .benefit-icon-wrap {
+    min-height: 28px;
+    min-width: 28px;
+    max-width: 32px;
+  }
+
+  .benefit-icon-wrap :deep(.img-skeleton-img) {
+    width: 32px;
   }
 
   .benefit p {
-    font-size: 20px;
+    font-size: 15px;
   }
 }
 </style>

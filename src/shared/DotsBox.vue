@@ -1,9 +1,9 @@
 <template>
   <div class="dots-box">
-    <div class="dots-line top"></div>
-    <div class="dots-line"></div>
-    <div class="dots-line"></div>
-    <div class="dots-line bottom"></div>
+    <div class="dots-line top" />
+    <div class="dots-line" />
+    <div class="dots-line" />
+    <div class="dots-line bottom" />
   </div>
 </template>
 
@@ -14,7 +14,6 @@
   align-items: center;
 }
 
-/* Линия из точек */
 .dots-line {
   margin: 12px auto 0;
   width: 100%;

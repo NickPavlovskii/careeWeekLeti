@@ -3,7 +3,8 @@
     <v-card-title>{{ property.name }}</v-card-title>
     <v-card-subtitle>{{ property.address }}</v-card-subtitle>
     <v-card-text>
-      <p>Статус: 
+      <p>
+        Статус: 
         <strong :class="statusColor">{{ status }}</strong>
       </p>
     </v-card-text>

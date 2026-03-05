@@ -1,109 +1,44 @@
 <template>
   <section class="map-section">
     <div class="container">
-      <div class="why-participate-cont">
-        <div class="center-wrapper">
-          <div class="why-participate">
-            <h2>Как нас найти</h2>
-          </div>
-          <div class="why-bg"></div>
-        </div>
+      <section-heading>Как нас найти</section-heading>
 
-        <div class="map-wrapper">
-          <img
-            src="@/assets/images/map/map-icon-left.png"
-            alt="Иллюстрация слева"
-            class="side-image left-image"
-          />
-          <img
-            src="@/assets/images/map/map-icon-right.png"
-            alt="Иллюстрация справа"
-            class="side-image right-image"
-          />
-          <img src="@/assets/images/map/map_exp.png" alt="" class="map-image" />
-          <!-- <yandex-map
-            :settings="mapSettings"
-            style="width: 650px; height: 550px"
-          >
-            <ymap-marker
-              :coords="[55.751244, 37.618423]"
-              :properties="{ balloonContent: 'Т-Банк — Карьерная неделя' }"
-            />
-          </yandex-map> -->
-        </div>
+      <div class="map-wrapper">
+        <img
+          alt=""
+          class="side-image left-image"
+          :src="mapIconLeft"
+        >
+        <img
+          alt=""
+          class="side-image right-image"
+          :src="mapIconRight"
+        >
+        <img
+          :src="mapExp"
+          alt="Карта"
+          class="map-image"
+        >
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-// import { yandexMap, ymapMarker } from 'vue-yandex-maps'
-
-// const mapSettings = {
-//   location: {
-//     center: [55.751244, 37.618423],
-//     zoom: 15
-//   },
-//   controls: ['zoomControl', 'fullscreenControl']
-// };
+import SectionHeading from "@/shared/SectionHeading.vue";
+import mapIconLeft from "@/assets/images/map/map-icon-left.png";
+import mapIconRight from "@/assets/images/map/map-icon-right.png";
+import mapExp from "@/assets/images/map/map_exp.png";
 </script>
 
 <style scoped>
-.map-container {
-  margin-top: 100px;
-}
-
 .map-section {
-  padding: 20px 30px;
-}
-.center-wrapper {
-  
-}
-.why-participate {
-  position: relative;
-  text-align: center;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  border: 4px solid rgb(48, 48, 49);
-  border-radius: 16px;
-  background: rgb(255, 255, 255);
-  width: 559px;
-  height: 164px;
-  left: 212px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  padding: 24px;
-  z-index: 2;
-  top: 153px;
+  padding: 40px 30px;
 }
 
-.why-bg {
-  position: relative;
-  margin-right: 30px;
-  border-radius: 16px;
-  width: 552px;
-  height: 164px;
-  left: 222px;
-  bottom: 23px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  padding: 24px 16px;
-  background: rgb(113, 168, 148);
-}
-
-.why-participate h2 {
-  color: rgb(90, 100, 130);
-  font-family: "Work Sans", sans-serif;
-  font-size: 48px;
-  font-weight: 500;
-  line-height: 60px;
-  text-align: center;
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .map-wrapper {
@@ -113,14 +48,13 @@
 
 .side-image {
   position: absolute;
-  top: 69%;
   transform: translateY(-50%);
   z-index: 2;
 }
 
 .left-image {
-  left: -150px;
-  top: 66.5%;
+  left: -120px;
+  top: 65%;
 }
 
 .right-image {
@@ -134,90 +68,41 @@
   border-radius: 16px;
   display: block;
   margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 1000px) {
-  .why-participate {
-    left: 100px;
+  .left-image {
+    left: -60px;
+    max-width: 160px;
   }
-
-  .why-bg {
-    left: 93px;
-  }
-
 }
 
-/* Адаптив для планшетов */
 @media (max-width: 768px) {
-  .side-image {
-    max-width: 50px;
+  .map-section {
+    padding: 30px 16px;
   }
 
   .left-image {
-    max-width: 190px;
-    left: -40px;
+    left: -30px;
+    max-width: 120px;
   }
 
   .right-image {
-    right: -40px;
-  }
-
-  .why-participate {
-    left: 0px;
-  }
-
-  .why-bg {
-    left: 0px;
+    right: -20px;
+    max-width: 60px;
   }
 }
 
-/* Адаптив для телефонов */
 @media (max-width: 480px) {
   .left-image {
-    max-width: 170px;
+    max-width: 80px;
+    left: -10px;
   }
 
   .right-image {
-    right: 0px;
-  }
-
-  .why-participate {
-    width: 360px;
-    left: -30x;
-  }
-
-  .why-bg {
-    width: 370px;
-    left: -30x;
-  }
-
-  .map-image[data-v-006555fe] {
-    width: 90%;
-  }
-}
-
-/* Адаптив для телефонов */
-@media (max-width: 360px) {
-  .left-image {
-    max-width: 170px;
-  }
-
-  .right-image {
-    right: 0px;
-  }
-
-  .why-participate {
-    width: 97%;
-    left: -30x;
-  }
-
-  .why-bg {
-    width: 100%;
-    left: -30x;
-  }
-
-  .map-image[data-v-006555fe] {
-    width: 90%;
+    max-width: 40px;
+    right: -5px;
   }
 }
 </style>

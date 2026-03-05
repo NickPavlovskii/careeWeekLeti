@@ -1,16 +1,25 @@
 <template>
   <section class="details">
-    <h2 class="details-title">ПОДРОБНЕЕ</h2>
+    <h2 class="details-title">
+      ПОДРОБНЕЕ
+    </h2>
 
     <div class="qr-codes">
-      <div v-for="(qr, index) in qrCodes" :key="index" class="qr-card">
-        <img :src="qr" alt="QR code" />
+      <div
+        v-for="(qr, index) in qrCodes"
+        :key="index"
+        class="qr-card"
+      >
+        <img
+          :src="qr"
+          alt="QR code"
+        >
       </div>
     </div>
 
     <button
-      @click="$router.push('/registration/employer')"
       class="details-btn"
+      @click="$router.push('/registration/employer')"
     >
       Заявка на участие работодателей
     </button>

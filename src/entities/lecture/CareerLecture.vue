@@ -1,34 +1,40 @@
 <template>
   <section class="container">
     <div class="section">
-      <h2 class="section-title">Площадки проведения</h2>
+      <section-heading>Площадки проведения</section-heading>
       <div class="lecture-section">
         <div class="lecture-block">
           <!-- Лектория 1 -->
           <div class="lecture-item">
-            <div class="dots"></div>
+            <div class="dots" />
             <div class="lecture-image-wrapper">
-              <div class="lecture-bg"></div>
-              <img
-                src="@/assets/images/lectures/lecture1.png"
+              <div class="lecture-bg" />
+              <ImageWithSkeleton
                 alt="Лектория 1"
-                class="lecture-image"
+                wrap-class="lecture-skeleton-wrap"
+                img-class="lecture-image"
+                :src="lecture1Img"
               />
             </div>
-            <p class="lecture-text">Лектория 1</p>
+            <p class="lecture-text">
+              Лектория 1
+            </p>
           </div>
 
           <!-- Лектория 2 -->
           <div class="lecture-item lecture-item--reverse">
             <div class="lecture-image-wrapper">
-              <div class="lecture-bg"></div>
-              <img
-                src="@/assets/images/lectures/lecture2.png"
+              <div class="lecture-bg" />
+              <ImageWithSkeleton
                 alt="Лектория 2"
-                class="lecture-image"
+                wrap-class="lecture-skeleton-wrap"
+                img-class="lecture-image"
+                :src="lecture2Img"
               />
             </div>
-            <p class="lecture-text">Лектория 2</p>
+            <p class="lecture-text">
+              Лектория 2
+            </p>
           </div>
         </div>
       </div>
@@ -36,13 +42,18 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup>
+import SectionHeading from "@/shared/SectionHeading.vue";
+import ImageWithSkeleton from "@/shared/ImageWithSkeleton.vue";
+import lecture1Img from "@/assets/images/lectures/lecture1.png";
+import lecture2Img from "@/assets/images/lectures/lecture2.png";
+</script>
 
 <style scoped>
 .section {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .lecture-section {
@@ -76,15 +87,6 @@
   height: 20px;
   background: white;
   z-index: 1;
-}
-
-.section-title {
-  font-size: 36px;
-  font-weight: 600;
-  text-align: center;
-  color: #000;
-  margin-bottom: 40px;
-  font-family: "Work Sans", sans-serif;
 }
 
 .lecture-block {
@@ -133,6 +135,20 @@
   z-index: 1;
 }
 
+.lecture-image-wrapper :deep(.lecture-skeleton-wrap) {
+  min-height: 220px;
+  border-radius: 4px;
+}
+
+.lecture-image-wrapper :deep(.img-skeleton-img) {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
 .lecture-image {
   position: relative;
   z-index: 2;
@@ -177,10 +193,6 @@
     padding: 30px;
   }
 
-  .section-title {
-    font-size: 30px;
-  }
-
   .lecture-text {
     font-size: 28px;
   }
@@ -222,10 +234,6 @@
 
 /* маленькие телефоны */
 @media (max-width: 480px) {
-  .section-title {
-    font-size: 24px;
-  }
-
   .lecture-text {
     font-size: 20px;
   }

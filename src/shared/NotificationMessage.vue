@@ -1,12 +1,15 @@
 <template>
   <div class="notifications">
-    <transition-group name="fade" tag="div">
+    <transition-group
+      name="fade"
+      tag="div"
+    >
       <div
         v-for="msg in notificationStore.messages"
         :key="msg.id"
         :class="`notification notification--${msg.type}`"
       >
-        <div :class="`notification__indicator indicator--${msg.type}`"></div>
+        <div :class="`notification__indicator indicator--${msg.type}`" />
         <div class="notification__content">
           <span class="notification__text">{{ msg.text }}</span>
         </div>
