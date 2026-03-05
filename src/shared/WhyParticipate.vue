@@ -139,9 +139,17 @@ const benefits = [
 }
 
 @media (max-width: 1346px) {
-  .dog-img {
-    display: none;
+  .dog-wrap {
+    bottom: -120px;
   }
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 480px) {
+
 }
 
 @media (max-width: 1024px) {
