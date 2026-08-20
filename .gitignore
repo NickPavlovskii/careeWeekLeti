@@ -2,6 +2,14 @@
 node_modules
 /dist
 
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Storybook
+/storybook-static/
 
 # local env files
 .env.local

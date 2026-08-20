@@ -33,7 +33,9 @@
               Работодатели
             </h1>
             <button
+              type="button"
               class="close-btn"
+              aria-label="Закрыть"
               @click="router.push('/')"
             >
               <v-icon>mdi-close</v-icon>

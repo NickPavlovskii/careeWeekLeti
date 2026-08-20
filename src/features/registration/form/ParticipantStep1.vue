@@ -33,7 +33,9 @@
               Участники
             </h1>
             <button
+              type="button"
               class="close-btn"
+              aria-label="Закрыть"
               @click="$router.push('/')"
             >
               <v-icon>mdi-close</v-icon>
@@ -428,7 +430,7 @@ async function submitForm() {
     })
     .catch((err) => {
       loading.value = false;
-      notificationStore.add("Ошибка при отправке данных ");
+      notificationStore.add("error", err.message || "Ошибка при отправке данных");
       console.error(err);
     });
 
